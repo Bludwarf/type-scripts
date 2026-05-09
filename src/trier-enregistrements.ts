@@ -1,15 +1,15 @@
 import path from "node:path";
 import process from "node:process";
-import {NomDeFichierFreebox} from "./nom-de-fichier-freebox";
-import {TriParNom, TriParSerie} from "./tri";
+import {CheminDeFichierFreebox, CheminDeFichierFreeboxParSerieV1} from "./nommage";
+import {Tri, TriParNom, TriParSerie} from "./tri";
 import {moveFile, readdir} from "./file-utils";
 // FIXME : provoque l'erreur : TypeError: util.promisify(...)(...) is not a function
 // const util = require('util')
 // const readdir = util.promisify(fs.readdir)
 
-class Tri {
+class Deplacements {
     constructor(
-        public readonly deplacementsDeFichier: DeplacementDeFichier[],
+        public readonly deplacementsDeFichier: DeplacementDeFichier<any>[],
     ) {
     }
 
@@ -28,7 +28,7 @@ class Tri {
                 console.log(`Fichier ignoré : ${entree}`)
                 continue;
             }
-            const nomDuFichierParse = NomDeFichierFreebox.parseFileName(entree);
+            const nomDuFichierParse = CheminDeFichierFreebox.parseFileName(entree);
             try {
                 for (const deplacementDeFichier of this.deplacementsDeFichier) {
                     const fichierDeplace = await deplacementDeFichier.deplacerFichier(dossier, nomDuFichierParse);
@@ -47,54 +47,22 @@ class Tri {
 
 }
 
-abstract class DeplacementDeFichier {
+class DeplacementDeFichier<T extends Tri> {
+    constructor(
+        readonly dossierVideos: string,
+        readonly tri: T,
+    ) {
+    }
+
     /**
      * @return Le fichier a été déplacé ?
      */
-    abstract deplacerFichier(dossier: string, nomDuFichierParse: NomDeFichierFreebox): Promise<boolean>;
-}
-
-class DeplacementParSerie extends DeplacementDeFichier {
-    private tri: TriParSerie | undefined;
-
-    constructor(
-        readonly dossierCible: string,
-    ) {
-        super();
-    }
-
-    async rechercherNomsDeSeriesConnus(): Promise<string[]> {
-        return await readdir(this.dossierCible);
-    }
-
-    async deplacerFichier(dossier: string, nomDuFichierParse: NomDeFichierFreebox): Promise<boolean> {
-        this.tri ??= new TriParSerie(this.dossierCible, await this.rechercherNomsDeSeriesConnus());
-        const cheminCible = this.tri.calculerCheminCible(nomDuFichierParse);
+    async deplacerFichier(dossier: string, nomDuFichierParse: CheminDeFichierFreebox): Promise<boolean> {
+        const cheminCible = this.tri.calculerCheminCibleRelatif(nomDuFichierParse);
         if (!cheminCible) return false;
         await moveFile(
             path.join(dossier, nomDuFichierParse.nomOriginal),
-            cheminCible,
-        );
-        return true;
-    }
-}
-
-class DeplacementParNom extends DeplacementDeFichier {
-    private tri: TriParNom | undefined;
-
-    constructor(
-        readonly dossierCible: string,
-    ) {
-        super();
-    }
-
-    async deplacerFichier(dossier: string, nomDuFichierParse: NomDeFichierFreebox): Promise<boolean> {
-        this.tri ??= new TriParNom(this.dossierCible);
-        const cheminCible = this.tri.calculerCheminCible(nomDuFichierParse);
-        if (!cheminCible) return false;
-        await moveFile(
-            path.join(dossier, nomDuFichierParse.nomOriginal),
-            cheminCible,
+            path.join(this.dossierVideos, cheminCible),
         )
         return true;
     }
@@ -102,15 +70,16 @@ class DeplacementParNom extends DeplacementDeFichier {
 
 (async function main(argv: string[]): Promise<void> {
     const args = argv.slice(2);
-    const [dossier] = args;
-    if (!dossier) {
-        throw new Error(`Veuillez indiquer le dossier à trier`)
+    const [dossierVideos] = args;
+    if (!dossierVideos) {
+        throw new Error(`Veuillez indiquer le dossier "videos" à trier`)
     }
 
-    const tri = new Tri([
-        new DeplacementParSerie(path.join(dossier, 'Par série')),
-        new DeplacementParNom(path.join(dossier, 'Par nom')),
+    const nomsDeSeriesConnus = await CheminDeFichierFreeboxParSerieV1.rechercherNomsDeSeriesConnus(dossierVideos);
+    const tri = new Deplacements([
+        new DeplacementDeFichier(dossierVideos, new TriParSerie(nomsDeSeriesConnus)),
+        new DeplacementDeFichier(dossierVideos, new TriParNom()),
     ]);
-    await tri.trier(dossier)
+    await tri.trier(dossierVideos)
 
 })(process.argv);

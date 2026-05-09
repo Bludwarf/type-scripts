@@ -10,7 +10,8 @@
   "scripts": {
     "test": "vitest",
     "cut": "ts-node cut-m2ts.ts",
-    "trier-enregistrements": "ts-node src/trier-enregistrements.ts"
+    "trier-enregistrements": "ts-node src/trier-enregistrements.ts",
+    "renommer-enregistrements": "ts-node src/renommer-enregistrements.ts"
   },
   "author": "bludwarf@gmail.com",
   "license": "ISC",
