@@ -13,6 +13,20 @@ export function readdir(dir: string): Promise<string[]> {
     })
 }
 
+export function fileExists(path: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fs.stat(path, err => {
+            if (err == null) {
+                resolve(true);
+            } else if (err.code === 'ENOENT') {
+                resolve(false);
+            } else {
+                reject(err);
+            }
+        });
+    })
+}
+
 export async function moveFile(source: string, target: string): Promise<void> {
     console.log('Source :', source)
     console.log('Cible  :', target)
