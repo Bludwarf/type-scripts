@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <channels>
+
     <!-- source : https://github.com/iptv-org/epg/blob/master/sites/programme-tv.net/programme-tv.net.channels.xml#L191C3-L191C110 -->
     <channel site="programme-tv.net" site_id="france-2-6" lang="fr" xmltv_id="France2.fr@SD">France 2</channel>
+
+    <!-- source : https://github.com/iptv-org/epg/blob/master/sites/programme-tv.net/programme-tv.net.channels.xml#L287C3-L287C97 -->
+    <channel site="programme-tv.net" site_id="tmc-21" lang="fr" xmltv_id="TMC.fr@SD">TMC</channel>
+
 </channels>
