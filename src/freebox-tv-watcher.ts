@@ -140,6 +140,7 @@ const WATCHLIST: string[] = [
     "Columbo",
     "Enquêtes au paradis",
     "Meurtres au paradis",
+    "Mystères au paradis", // Avec Kris Marshall
 ];
 
 /** Marges avant/après l'enregistrement (en secondes), sinon utilise la
