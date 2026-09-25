@@ -46,13 +46,17 @@ npm run freebox-tv-watch
 
 - `openSession` : Ouverture de session à configurer en suivant https://dev.freebox.fr/sdk/os/login/
 
+Copier-coller le résultat dans le
+Userscript [zone-telechargement.user.js](../Userscripts/dist/zone-telechargement.user.js).
+
 ## TODO
 
 - [x] Ne pas faire de boucle dans le programme
 - [x] Mise en place du cron
 - [x] Utiliser la plage horaire la plus longue pour déclencher le cron le moins souvent possible => 14 jours
 - [x] Afficher des logs pour suivre la recherche en temps réel (aide pour le debug)
-- [x] Retrouver "Meurtres au paradis" diffusé le 03/08/2026 à 22h05, actuellement introuvable via [epg](https://github.com/iptv-org/epg)
+- [x] Retrouver "Meurtres au paradis" diffusé le 03/08/2026 à 22h05, actuellement introuvable
+  via [epg](https://github.com/iptv-org/epg)
 - [x] Filtrer les chaînes dès la génération du guide.json par epg (sinon fichier énorme)
 
 ## Problème de quota
@@ -70,7 +74,8 @@ Error: Freebox API 429 (rate_limit) sur http://mafreebox.freebox.fr/api/v16/tv/e
     at async main (C:\Users\bludw\Projets\Bludwarf\Scripts Synology\src\freebox-tv-watcher.ts:393:5)
 ```
 
-Quand on regarde un exemple de RawEpgEntry, on dirait qu'on pourrait utiliser le next plutôt que d'itérer sur un cursor ?
+Quand on regarde un exemple de RawEpgEntry, on dirait qu'on pourrait utiliser le next plutôt que d'itérer sur un
+cursor ?
 
 Autre piste : appeler une API externe, pour faire la recherche puis appeler l'API Freebox, uniquement si nécessaire
 
@@ -153,7 +158,13 @@ Liste des chaînes :
 $channels = (Invoke-RestMethod -Method GET -Uri http://mafreebox.freebox.fr/api/v16/tv/channels/ -Headers $headers).result
 
 $channels.PSObject.Properties |
-    ForEach-Object { [PSCustomObject]@{ uuid = $_.Name; name = $_.Value.name } } |
-    Sort-Object name |
-    Format-Table -AutoSize
+        ForEach-Object { [PSCustomObject]@{ uuid = $_.Name; name = $_.Value.name } } |
+        Sort-Object name |
+        Format-Table -AutoSize
+```
+
+# Lister fichiers video
+
+```bash
+npm run lister-fichiers-video -- /volume1/video/ /volume1/video/video-files-list.json
 ```
