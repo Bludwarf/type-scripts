@@ -10,10 +10,10 @@
   "scripts": {
     "test": "vitest",
     "cut": "ts-node cut-m2ts.ts",
-    "trier-enregistrements": "ts-node src/trier-enregistrements.ts",
-    "renommer-enregistrements": "ts-node src/renommer-enregistrements.ts",
-    "freebox-tv-watch": "ts-node src/freebox-tv-watcher.ts",
-    "lister-fichiers-video": "ts-node src/lister-fichiers-video.ts"
+    "trier-enregistrements": "ts-node src/scripts/trier-enregistrements.ts",
+    "renommer-enregistrements": "ts-node src/scripts/renommer-enregistrements.ts",
+    "freebox-tv-watch": "ts-node src/scripts/freebox-tv-watcher.ts",
+    "lister-fichiers-video": "ts-node src/scripts/lister-fichiers-video.ts"
   },
   "author": "bludwarf@gmail.com",
   "license": "ISC",

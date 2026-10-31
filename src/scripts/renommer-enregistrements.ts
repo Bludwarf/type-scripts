@@ -1,7 +1,7 @@
 import process from "node:process";
-import {CheminDeFichierFreeboxParSerieV1} from "./nommage";
-import {mkdirs, moveFile, readdir} from "./file-utils";
-import {RenommageParSerieV1V2} from "./renommage";
+import {CheminDeFichierFreeboxParSerieV1} from "../lib/nommage";
+import {mkdirs, moveFile, readdir} from "../lib/file-utils";
+import {RenommageParSerieV1V2} from "../lib/renommage";
 import path from "node:path";
 
 (async function main(argv: string[]): Promise<void> {

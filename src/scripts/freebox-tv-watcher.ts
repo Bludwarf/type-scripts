@@ -30,8 +30,8 @@
 import {readFile, writeFile} from "node:fs/promises";
 import {existsSync} from "node:fs";
 import {createHmac} from "node:crypto";
-import {toDate} from "./date-utils";
-import {pad} from "./string-utils";
+import {toDate} from "../lib/date-utils";
+import {pad} from "../lib/string-utils";
 
 // ---------------------------------------------------------------------------
 // Logger — sorties lisibles (horodatage + icône + couleur), pour suivre le

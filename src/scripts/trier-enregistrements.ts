@@ -1,8 +1,8 @@
 import path from "node:path";
 import process from "node:process";
-import {CheminDeFichierFreebox, CheminDeFichierFreeboxParSerieV1} from "./nommage";
-import {Tri, TriParNom, TriParSerie} from "./tri";
-import {moveFile, readdir} from "./file-utils";
+import {CheminDeFichierFreebox, CheminDeFichierFreeboxParSerieV1} from "../lib/nommage";
+import {Tri, TriParNom, TriParSerie} from "../lib/tri";
+import {moveFile, readdir} from "../lib/file-utils";
 // FIXME : provoque l'erreur : TypeError: util.promisify(...)(...) is not a function
 // const util = require('util')
 // const readdir = util.promisify(fs.readdir)
