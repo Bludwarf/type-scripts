@@ -1,22 +1,26 @@
 {
-  "dependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
-  },
   "name": "scripts",
   "version": "1.0.0",
-  "description": "Scripts Node pour BluStation (Synology)",
-  "main": "index.js",
+  "description": "Scripts Node pour BluStation (Synology) et autres",
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "test": "vitest",
     "cut": "ts-node cut-m2ts.ts",
     "trier-enregistrements": "ts-node src/scripts/trier-enregistrements.ts",
     "renommer-enregistrements": "ts-node src/scripts/renommer-enregistrements.ts",
     "freebox-tv-watch": "ts-node src/scripts/freebox-tv-watcher.ts",
-    "lister-fichiers-video": "ts-node src/scripts/lister-fichiers-video.ts"
+    "lister-fichiers-video": "ts-node src/scripts/lister-fichiers-video.ts",
+    "synchroniser-photos": "npx ts-node src/synchroniser-dossiers-photos.ts",
+    "repartir-photos": "npx ts-node src/repartir-photos-par-dates.ts"
   },
   "author": "bludwarf@gmail.com",
   "license": "ISC",
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
   "devDependencies": {
     "@types/node": "^25.6.2",
     "vitest": "^4.1.5"
