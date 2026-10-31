@@ -1,4 +1,4 @@
-# Installation
+# Installation BluStation (Synology)
 
 ```shell
 ssh blustation
