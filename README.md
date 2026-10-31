@@ -168,3 +168,28 @@ $channels.PSObject.Properties |
 ```bash
 npm run lister-fichiers-video -- /volume1/video/ /volume1/video/video-files-list.json
 ```
+
+# Extraire chapitres audio
+
+## Exemple
+
+```bash
+npm run extraire-chapitres-audio -- --input ".\Cars.mkv" -format mp3 -track 1 -album "Cars"
+```
+
+## Informations
+
+Pour obtenir plus d'informations sur la vidéo d'entrée, utiliser ffmpeg.
+
+Exemple :
+
+```powershell
+ffmpeg -i .\Cars.mkv 
+```
+
+## TODO
+
+- [ ] Deuxième chapitre en sortie superflu
+- [ ] Langue absente en sortie
+- [ ] creation_time en sortie marquée comme GMT alors que GMT+2 (si heure d'été en France)
+- [ ] Option `--anti-normalize` pour conserver le niveau sonore original ?

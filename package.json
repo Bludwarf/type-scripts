@@ -13,7 +13,8 @@
     "freebox-tv-watch": "ts-node src/scripts/freebox-tv-watcher.ts",
     "lister-fichiers-video": "ts-node src/scripts/lister-fichiers-video.ts",
     "synchroniser-photos": "npx ts-node src/synchroniser-dossiers-photos.ts",
-    "repartir-photos": "npx ts-node src/repartir-photos-par-dates.ts"
+    "repartir-photos": "npx ts-node src/repartir-photos-par-dates.ts",
+    "extraire-chapitres-audio": "ts-node src/scripts/extraire-chapitres-audio.ts"
   },
   "author": "bludwarf@gmail.com",
   "license": "ISC",
